@@ -36,3 +36,8 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Credential storage
+/config/credentials/development.key
+/config/credentials/test.key
+/config/credentials/production.key
