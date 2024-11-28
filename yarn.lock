@@ -2,3 +2,5 @@
 # yarn lockfile v1
 
 
+bootwind@../bootwind:
+  version "1.0.0"

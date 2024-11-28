@@ -1,0 +1,16 @@
+<div class="flex justify-between items-center mb-5">
+  <h1 class="mb-0">PASSWORDS</h1>
+  <%= link_to("New Password", new_password_path, class: "btn btn-success") %>
+</div>
+
+<div class="flex flex-col gap-3">
+  <% @passwords.each do |password| %>
+    <div id="<%= dom_id(password) %>">
+      <%= link_to password do %>
+        <%= password.title %> | <%= password.username %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+    <%#= render "password", password: @password %>

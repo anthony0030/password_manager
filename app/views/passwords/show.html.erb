@@ -1,0 +1,31 @@
+<div class="flex justify-between items-center mb-5">
+  <h1 class="mb-0">
+    <%= @password.title %>
+    <%= link_to @password.url, target: :_blank do %>
+      <i class="fa-solid fa-arrow-up-right-from-square text-blue-500"></i>
+    <% end %>
+  </h1>
+  <%= link_to("edit", edit_password_path, class: "btn btn-primary") %>
+</div>
+
+<div id="<%= dom_id(@password) %>">
+  <div>
+    <h6>Username / Email</h6>
+    <div class="flex gap-1 mb-3">
+      <pre class="m-0 flex-1"><code><%= @password.username %></code></pre>
+        <%= button_tag data: { controller: "clipboard", action: "clipboard#copy", clipboard_content_value: @password.username }, class: "btn btn-light" do %>
+        <i class="fa-solid fa-copy"></i>
+      <% end %>
+    </div>
+
+    <h6>Password</h6>
+    <div class="flex gap-1 mb-3">
+      <pre class="m-0 flex-1"><code><%= @password.password %></code></pre>
+        <%= button_tag data: { controller: "clipboard", action: "clipboard#copy", clipboard_content_value: @password.password }, class: "btn btn-light" do %>
+        <i class="fa-solid fa-copy"></i>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
