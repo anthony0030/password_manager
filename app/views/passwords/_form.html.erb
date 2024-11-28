@@ -30,7 +30,7 @@
 
   <%= form.submit class: "btn btn-primary" %>
 
-  <%= button_tag "Delete", form: "delete_password", class: "btn btn-danger" %>
+  <%= button_tag "Delete", form: "delete_password", class: "btn btn-danger" if form.object.persisted? && current_user_password.deletable? %>
 <% end %>
 
 <%= form_with model: password, method: :delete, id: "delete_password", data: { turbo_confirm: "Are you sure?" } %>

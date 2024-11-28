@@ -1,27 +1,29 @@
 <div class="flex justify-between items-center mb-5">
   <h1 class="mb-0">
     <%= @password.title %>
-    <%= link_to @password.url, target: :_blank do %>
-      <i class="fa-solid fa-arrow-up-right-from-square text-blue-500"></i>
+    <% if @password.editable_by? current_user %>
+      <%= link_to(@password.url, target: :_blank) do %>
+        <i class="fa-solid fa-arrow-up-right-from-square text-blue-500"></i>
+      <% end %>
     <% end %>
   </h1>
-  <%= link_to("edit", edit_password_path, class: "btn btn-primary") %>
+  <%= link_to("edit", edit_password_path(@password), class: "btn btn-primary") if current_user_password.editable? %>
 </div>
 
 <div id="<%= dom_id(@password) %>">
   <div>
     <h6>Username / Email</h6>
-    <div class="flex gap-1 mb-3">
-      <pre class="m-0 flex-1"><code><%= @password.username %></code></pre>
-        <%= button_tag data: { controller: "clipboard", action: "clipboard#copy", clipboard_content_value: @password.username }, class: "btn btn-light" do %>
+    <div class="flex mb-3">
+      <pre class="m-0 flex-1 rounded-r-none"><code><%= @password.username %></code></pre>
+        <%= button_tag data: { controller: "clipboard", action: "clipboard#copy", clipboard_content_value: @password.username }, class: "btn btn-light  rounded-l-none" do %>
         <i class="fa-solid fa-copy"></i>
       <% end %>
     </div>
 
     <h6>Password</h6>
-    <div class="flex gap-1 mb-3">
-      <pre class="m-0 flex-1"><code><%= @password.password %></code></pre>
-        <%= button_tag data: { controller: "clipboard", action: "clipboard#copy", clipboard_content_value: @password.password }, class: "btn btn-light" do %>
+    <div class="flex mb-3">
+      <pre class="m-0 flex-1 rounded-r-none"><code><%= @password.password %></code></pre>
+        <%= button_tag data: { controller: "clipboard", action: "clipboard#copy", clipboard_content_value: @password.password }, class: "btn btn-light rounded-l-none" do %>
         <i class="fa-solid fa-copy"></i>
       <% end %>
     </div>
@@ -29,14 +31,23 @@
   </div>
 </div>
 
-<h6>Share</h6>
+<h6>Shared With</h6>
 
 <div class="flex flex-col divide-y divide-gray-100 gap-5">
-  <%= link_to 'Add a user', new_password_share_path(@password) %>
-  <% @password.users.excluding(current_user).each do |user|%>
+
+  <%= link_to 'Add a user', new_password_share_path(@password) if @password.sharable_by? current_user %>
+
+
+  <% @password.user_passwords.includes(:user).each do |user_password|%>
     <div class="flex justify-between items-center">
-      <div><%= user.email %></div>
-      <%= button_to "Remove", password_share_path(@password, user), method: :delete, data: { turbo_confirm: "Are You Sure?" } %>
+      <div><%= user_password.user.email %></div>
+      <div><%= user_password.role.titleize %></div>
+      <%= button_to(
+        "Remove",
+        password_share_path(@password, user_password.user),
+        method: :delete,
+        data: { turbo_confirm: "Are You Sure?" }
+      ) if @password.sharable_by? current_user %>
     </div>
   <% end %>
 </div>

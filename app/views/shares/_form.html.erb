@@ -1,0 +1,33 @@
+<%= form_with(model: user_password, url: password_shares_path(password)) do |form| %>
+  <% if form.object.errors.any? %>
+    <ul>
+      <% form.object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :user_id, class: "form-label" %>
+    <%= form.collection_select(
+      :user_id,
+      password.sharable_users,
+      :id,
+      :email,
+      { include_blank: "Select User" },
+      { class: "form-select" },
+    ) %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :role, class: "form-label" %>
+    <%= form.select(
+      :role,
+      UserPassword::ROLES.map{ |role| [role.titleize, role]} ,
+      { include_blank: "Select ROLE" },
+      { class: "form-select" },
+    ) %>
+  </div>
+
+    <%= form.submit "Share", class: "btn btn-primary"%>
+<% end %>
