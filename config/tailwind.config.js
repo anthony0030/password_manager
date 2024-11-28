@@ -1,6 +1,9 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
+  darkMode: "class",
+  important: true,
+
   content: [
     './public/*.html',
     './app/helpers/**/*.rb',
@@ -8,9 +11,17 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}'
   ],
   theme: {
+    container: {
+      center: true, // To center containers by default
+    },
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
+      content: {
+        empty: "\"\"", //* ""
+        space: "\" \"", //* " "
+        asterisk: "\"*\"", //* "*"
       },
     },
   },
