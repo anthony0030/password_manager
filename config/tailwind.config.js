@@ -10,7 +10,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      ...require('bootwind/theme'),
+      ...require('@anthony0030/bootwind/theme'),
     },
   },
   plugins: [
