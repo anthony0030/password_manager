@@ -1,5 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-
 module.exports = {
   darkMode: "class",
   important: true,
@@ -11,26 +9,14 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}'
   ],
   theme: {
-    container: {
-      center: true, // To center containers by default
-    },
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
-      content: {
-        empty: "\"\"", //* ""
-        space: "\" \"", //* " "
-        asterisk: "\"*\"", //* "*"
-      },
+      ...require('bootwind/theme'),
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
-    require('bootwind'),
-    // require("bootwind/buttons"),
-    // require("bootwind/form"),
+    require('@anthony0030/bootwind'),
   ]
 }
