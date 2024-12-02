@@ -20,20 +20,20 @@ export default class extends Controller {
   onCopy(){
     this.setContent(`<i class="fa-solid fa-check"></i>`);
 
-    this.resetConent();
+    this.resetContent();
   }
 
   onError(){
     this.setContent(`<i class="fa-solid fa-xmark"></i>`);
 
-    this.resetConent();
+    this.resetContent();
   }
 
   setContent(content){
     this.element.closest("button").innerHTML = content;
   }
 
-  resetConent(delay = 2500) {
+  resetContent(delay = 2500) {
     this.timout = setTimeout(() => {
       this.element.innerHTML = this.originalContent;
     }, delay);
